@@ -116,11 +116,12 @@ export const SAMPLE_PROPERTIES: Property[] = [
 ];
 
 export const SAMPLE_TEAM: TeamMember[] = [
-  { id: "t1", name: "Anil Chandrakant Patil", role: "Founder & Consultant", phone: "9029847968", display_order: 1 },
-  { id: "t2", name: "Team Member 2", role: "Senior Property Advisor", phone: "9326313320", display_order: 2 },
-  { id: "t3", name: "Team Member 3", role: "Property Consultant", phone: "9035244518", display_order: 3 },
-  { id: "t4", name: "Team Member 4", role: "Documentation Specialist", phone: "9619441338", display_order: 4 },
-  { id: "t5", name: "Team Member 5", role: "Customer Relations", phone: "9137201473", display_order: 5 },
+  { id: "t1", name: "Anil Chandrakant Patil", role: "Founder & Consultant", phone: "9029847968", display_order: 0 },
+  { id: "t2", name: "Ganesh Rathod", role: "Junior Executive", phone: "8424872525", display_order: 1 },
+  { id: "t3", name: "Vaibhav Patil", role: "Senior Executive", phone: "9970548582", display_order: 2 },
+  { id: "t4", name: "Akshata Ghanekar", role: "Senior Executive", phone: "9326313320", display_order: 3 },
+  { id: "t5", name: "Kushal More", role: "Junior Executive", phone: "9137201473", display_order: 4 },
+  { id: "t6", name: "Rohit Gadve", role: "Junior Executive", phone: "7021162127", display_order: 5 },
 ];
 
 export const SERVICES = [

@@ -27,10 +27,22 @@ const STATS = [
 
 function About() {
   const { data: team } = useTeam();
+  // Filter out Anil from team section — he appears in founder section
+  const teamMembers = team.filter(
+    (m) => !m.name.toLowerCase().includes("anil")
+  );
+  // Find Anil for founder section
+  const founder = team.find((m) => m.name.toLowerCase().includes("anil"));
 
   return (
     <SiteLayout>
-      <PageHero label="A Few Words About" title="Our Firm" subtitle="RERA Registered Real Estate Consultancy" bg={office.url} height="h-[50vh]" />
+      <PageHero
+        label="A Few Words About"
+        title="Our Firm"
+        subtitle="RERA Registered Real Estate Consultancy"
+        bg={office.url}
+        height="h-[50vh]"
+      />
 
       <section className="bg-navy py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
@@ -52,15 +64,24 @@ function About() {
       <section className="bg-navy-light py-16">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-center">
           <div>
-            <div className="glass flex h-72 items-center justify-center rounded-2xl text-grey glow-border">
-              [ Anil Chandrakant Patil Photo ]
-            </div>
+            {founder?.photo_url ? (
+              <img
+                src={founder.photo_url}
+                alt="Anil Chandrakant Patil"
+                className="w-full rounded-2xl border border-gold/20"
+                style={{ objectFit: "contain", backgroundColor: "#111827", maxHeight: "320px" }}
+              />
+            ) : (
+              <div className="glass flex h-72 items-center justify-center rounded-2xl text-grey glow-border">
+                [ Anil Chandrakant Patil Photo ]
+              </div>
+            )}
             <div className="mt-4 inline-block rounded-full bg-gold/15 px-4 py-1.5 text-sm font-semibold text-gold">
               RERA No. {CONTACT.rera}
             </div>
           </div>
           <div>
-            <SectionLabel>Founder & Consultant</SectionLabel>
+            <SectionLabel>Founder &amp; Consultant</SectionLabel>
             <h2 className="mt-2 font-display text-3xl font-bold text-white">Anil Chandrakant Patil</h2>
             <p className="text-emerald">Real Estate Consultant</p>
             <p className="mt-4 leading-relaxed text-grey">
@@ -91,25 +112,39 @@ function About() {
         </div>
       </section>
 
-      {/* TEAM */}
+      {/* TEAM — excludes Anil */}
       <section className="bg-navy-light py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-center font-display text-3xl font-bold text-white">Meet Our Team</h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((m) => (
-              <div key={m.id} className="glass rounded-2xl p-6 text-center transition-all hover:glow-border">
+            {teamMembers.map((m) => (
+              <div
+                key={m.id}
+                className="glass rounded-2xl p-6 text-center transition-all hover:glow-border"
+              >
                 {m.photo_url ? (
-                  <img src={m.photo_url} alt={m.name} className="mx-auto h-20 w-20 rounded-full object-cover" />
+                  <img
+                    src={m.photo_url}
+                    alt={m.name}
+                    className="mx-auto h-20 w-20 rounded-full object-cover object-top border-2 border-gold/30"
+                  />
                 ) : (
                   <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gold/20 font-display text-2xl font-bold text-gold">
-                    {m.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                    {m.name.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
                   </div>
                 )}
                 <h3 className="mt-4 font-bold text-white">{m.name}</h3>
                 <p className="text-sm text-emerald">{m.role}</p>
                 {m.phone && <p className="mt-1 text-sm text-grey">📞 {m.phone}</p>}
                 {m.phone && (
-                  <a href={`https://wa.me/91${m.phone}`} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sm text-gold hover:underline">💬 WhatsApp</a>
+                  <a
+                    href={`https://wa.me/91${m.phone}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 inline-block text-sm text-gold hover:underline"
+                  >
+                    💬 WhatsApp
+                  </a>
                 )}
               </div>
             ))}
@@ -121,7 +156,14 @@ function About() {
       <WhyChooseSection />
 
       <section className="bg-navy-light py-12 text-center">
-        <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="rounded-full bg-emerald px-7 py-3 font-semibold text-white">Get in Touch →</a>
+        <a
+          href={WHATSAPP_LINK}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full bg-emerald px-7 py-3 font-semibold text-white"
+        >
+          Get in Touch →
+        </a>
       </section>
     </SiteLayout>
   );

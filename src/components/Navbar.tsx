@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Logo } from "./Logo";
 
 const links = [
   { to: "/", label: "Home" },
@@ -22,15 +21,33 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all ${
-        scrolled ? "border-b border-border" : "border-b border-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "border-b border-border shadow-lg" : "border-b border-transparent"
       }`}
-      style={{ background: "rgba(10,15,30,0.95)", backdropFilter: "blur(12px)" }}
+      style={{ background: "rgba(10,15,30,0.97)", backdropFilter: "blur(16px)" }}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <Logo />
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-8">
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg overflow-hidden">
+            <img
+              src="/src/assets/logo.png"
+              alt="Kushal Enterprises Logo"
+              className="h-full w-full object-contain"
+              style={{ mixBlendMode: "lighten" }}
+            />
+          </div>
+          <div className="flex flex-col leading-none">
+            <div className="flex items-baseline gap-1">
+              <span className="font-display text-xl font-bold text-gold tracking-wide">KUSHAL</span>
+              <span className="font-display text-xl font-bold text-white tracking-wide">ENTERPRISES</span>
+            </div>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald mt-0.5">
+              Real Estate Consultant
+            </span>
+          </div>
+        </Link>
 
-        <div className="hidden items-center gap-7 lg:flex">
+        <div className="hidden items-center gap-8 lg:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -49,16 +66,10 @@ export function Navbar() {
               )}
             </Link>
           ))}
-          <Link
-            to="/admin/login"
-            className="rounded-md border border-gold/40 px-3 py-1 text-xs font-semibold text-gold transition-colors hover:bg-gold/10"
-          >
-            Admin
-          </Link>
         </div>
 
         <button
-          className="lg:hidden text-white text-2xl"
+          className="lg:hidden text-white text-2xl p-1"
           onClick={() => setOpen(true)}
           aria-label="Open menu"
         >
@@ -67,9 +78,22 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-navy/98 backdrop-blur-lg lg:hidden">
-          <div className="flex items-center justify-between px-4 py-3">
-            <Logo />
+        <div className="fixed inset-0 z-50 flex flex-col bg-navy/99 backdrop-blur-lg lg:hidden">
+          <div className="flex items-center justify-between px-6 py-4">
+            <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold/15 border border-gold/30">
+                <span className="text-xl">🏠</span>
+              </div>
+              <div className="flex flex-col leading-none">
+                <div className="flex items-baseline gap-1">
+                  <span className="font-display text-xl font-bold text-gold">KUSHAL</span>
+                  <span className="font-display text-xl font-bold text-white">ENTERPRISES</span>
+                </div>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald mt-0.5">
+                  Real Estate Consultant
+                </span>
+              </div>
+            </Link>
             <button
               className="text-white text-3xl"
               onClick={() => setOpen(false)}
@@ -78,26 +102,19 @@ export function Navbar() {
               ×
             </button>
           </div>
-          <div className="flex flex-1 flex-col items-center justify-center gap-7">
+          <div className="flex flex-1 flex-col items-center justify-center gap-8">
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
-                className="text-2xl font-display text-white [&.active]:text-emerald"
+                className="text-2xl font-display font-bold text-white hover:text-gold transition-colors [&.active]:text-emerald"
                 activeProps={{ className: "active" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
               </Link>
             ))}
-            <Link
-              to="/admin/login"
-              onClick={() => setOpen(false)}
-              className="rounded-md border border-gold/40 px-5 py-2 text-gold"
-            >
-              Admin
-            </Link>
           </div>
         </div>
       )}
